@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cors());
 app.use('/api/usuario', usuario);
-app.use('/api/dbcita', dbcita);
-app.use('/api/dbinventario', dbinventario);
+app.use('/api/cita', dbcita);
+app.use('/api/inventario', dbinventario);
 
 
 app.listen(PORT,()=>{
