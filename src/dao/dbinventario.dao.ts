@@ -17,8 +17,8 @@ export const Listar = async (): Promise<dbinventario[]> => {
 
 export const Crear = async (us: dbinventario): Promise<dbinventario> => {
     try {
-        let tsql = `INSERT INTO dbinventario(dbpassword, email, fecha, nombre, roll)
-        VALUES(' '${us.nproducto}', '${us.cantidad}','${us.seccion}','${us.marca}')`;
+        let tsql = `INSERT INTO dbinventario(nproducto, cantidad, seccion, marca)
+        VALUES( '${us.nproducto}', '${us.cantidad}','${us.seccion}','${us.marca}')`;
         const pool = await getConnection();
         let rs = await pool.query(tsql);
         if (rs)
@@ -32,11 +32,11 @@ export const Crear = async (us: dbinventario): Promise<dbinventario> => {
     
 }
 
-export const Delete = async (id: number): Promise<boolean> => {
+export const Delete = async (codigo: number): Promise<boolean> => {
     try {
-        const tsql = `DELETE FROM dbinventario WHERE id = @id`;
+        const tsql = `DELETE FROM dbinventario WHERE codigo = @codigo`;
         const pool = await getConnection();
-        const request = pool.request().input('id', id);
+        const request = pool.request().input('codigo', codigo);
         const rs = await request.query(tsql);
         
         return rs.rowsAffected[0] > 0; 
@@ -47,9 +47,8 @@ export const Delete = async (id: number): Promise<boolean> => {
 
 export const Editar = async (us: dbinventario): Promise<boolean> => {
     try {
-        const tsql = `UPDATE usuario 
-                      SET codigo = @codigo, 
-                          producto = @producto, 
+        const tsql = `UPDATE dbinventario 
+                      SET nproducto = @nproducto, 
                           cantidad = @cantidad, 
                           seccion = @seccion, 
                           marca = @marca 
@@ -58,7 +57,7 @@ export const Editar = async (us: dbinventario): Promise<boolean> => {
         const pool = await getConnection();
         const request = pool.request()
             .input('codigo', us.codigo)
-            .input('producto', us.nproducto)
+            .input('nproducto', us.nproducto)
             .input('cantidad', us.cantidad)
             .input('seccion', us.seccion)
             .input('marca', us.marca);

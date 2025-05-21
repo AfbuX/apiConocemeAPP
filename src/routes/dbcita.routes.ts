@@ -22,6 +22,7 @@ router.post('/', (rq, rs) => {
             rs.json(obj);
         })
         .catch(e => {
+            console.error(e);
             rs.status(500).json(e);
         })
 });
@@ -32,6 +33,8 @@ router.delete('/:id', (rq, rs) => {
             rs.json(obj);
         })
         .catch(e => {
+            console.error(e);
+            
             rs.status(500).json(e);
         })
 });
@@ -42,6 +45,8 @@ router.put('/', (rq, rs) => {
             rs.json(obj);
         })
         .catch(e => {
+            console.error(e);
+            
             rs.status(500).json(e);
         })
 });

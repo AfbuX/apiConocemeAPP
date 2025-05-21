@@ -16,8 +16,8 @@ export const Listar = async (): Promise<dbcita[]> => {
 } 
 export const Crear = async (us: dbcita): Promise<dbcita> => {
     try {
-        let tsql = `INSERT INTO usuario(dbpassword, email, fecha, nombre, roll)
-        VALUES(' '${us.nombre}','${us.fecha}','${us.servicio}')`;
+        let tsql = `INSERT INTO dbcita(nombre,fecha, servicio)
+        VALUES( '${us.nombre}','${us.fecha}','${us.servicio}')`;
         const pool = await getConnection();
         let rs = await pool.query(tsql);
         if (rs)
@@ -33,7 +33,7 @@ export const Crear = async (us: dbcita): Promise<dbcita> => {
 
 export const Delete = async (id: number): Promise<boolean> => {
     try {
-        const tsql = `DELETE FROM usuario WHERE id = @id`;
+        const tsql = `DELETE FROM dbcita WHERE id = @id`;
         const pool = await getConnection();
         const request = pool.request().input('id', id);
         const rs = await request.query(tsql);
@@ -46,10 +46,10 @@ export const Delete = async (id: number): Promise<boolean> => {
 
 export const Editar = async (us: dbcita): Promise<boolean> => {
     try {
-        const tsql = `UPDATE usuario 
+        const tsql = `UPDATE dbcita 
                       SET nombre = @nombre, 
                           fecha = @fecha, 
-                          servicio = @servicio, 
+                          servicio = @servicio 
                       WHERE id = @id`;
 
         const pool = await getConnection();
